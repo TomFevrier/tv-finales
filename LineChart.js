@@ -238,10 +238,10 @@ LineChart.prototype.createLines = function() {
 				.attr('cy', function(d) {
 					return that.yScale(d.rating);
 				})
-				.attr('r', 10)
+				.attr('r', 8)
 				.attr('fill', 'white')
 				.attr('stroke', 'crimson')
-				.attr('stroke-width', 4);
+				.attr('stroke-width', 3);
 	});
 
 }
@@ -292,7 +292,7 @@ LineChart.prototype.update = function(title) {
 	this.lines.select(`path.${title.replace(/ /g, "-").toLowerCase()}`)
 		.transition()
 		.duration(1000)
-			.attr('stroke-width', 4)
+			.attr('stroke-width', 3)
 			.attr('stroke', 'crimson')
 			.style('opacity', 1);
 
