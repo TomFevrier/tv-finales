@@ -177,7 +177,7 @@ BarChart.prototype.createBars = function() {
 			return d.key;
 		})
 		.style('font-family', "'Tungsten', sans-serif")
-		.style('font-size', `${that.yScale.bandwidth() - 8}px`)
+		.style('font-size', `${that.yScale.bandwidth() - 6}px`)
 		.style('opacity', 0);
 }
 
