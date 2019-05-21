@@ -28,6 +28,13 @@ export default class BarChart {
 						.attr('width', function(d) {
 							return Math.abs(that.xScale(0) - that.xScale(d.value.difference));
 						});
+				that.svg.selectAll('.title').each(function(d, i) {
+					d3.select(this)
+						.transition()
+						.duration(500)
+						.delay(1500 + i * 50)
+							.style('opacity', 1);
+				});
 				d3.select(window).on('scroll', null);
 			}
 		})
@@ -42,8 +49,8 @@ BarChart.prototype.draw = function() {
 
 	let that = this;
 
-	this.width = 800;
-	this.height = 1500;
+	this.width = 500;
+	this.height = 1000;
 	this.margin = 20;
 
 	this.createSVG();
@@ -99,14 +106,6 @@ BarChart.prototype.createAxes = function() {
 		.attr('class', 'grid')
 		.attr('transform', `translate(0, ${this.margin})`)
 
-	// this.svg.append('line')
-	// 		.attr('x1', this.xScale(0))
-	// 		.attr('y1', this.margin)
-	// 		.attr('x2', this.xScale(0))
-	// 		.attr('y2', this.height - this.margin)
-	// 		.attr('stroke', 'black')
-	// 		.attr('stroke-width', 3);
-
 	this.svg.append('g')
 		.call(this.xAxis)
 		.attr('class', 'xAxis')
@@ -119,7 +118,7 @@ BarChart.prototype.createBars = function() {
 
 	let that = this;
 
-	this.bars = this.svg.selectAll('.bar')
+	this.svg.selectAll('.bar')
 		.data(this.data)
 		.enter().append('rect')
 			.attr('class', 'bar')
@@ -153,6 +152,33 @@ BarChart.prototype.createBars = function() {
 			.attr('x', this.xScale(0))
 			.attr('width', 0)
 			.style('cursor', 'pointer');
+
+	console.log(this.data)
+
+	this.svg.selectAll('.title')
+		.data(this.data)
+		.enter().append('text')
+		.attr('class', 'title')
+		.attr('x', function(d) {
+			console.log(d)
+			return that.xScale((d.value.difference > 0) ? -0.02 : 0.02);
+		})
+		.attr('y', function(d) {
+			return that.yScale(d.key) + that.yScale.bandwidth()/2;
+		})
+		.attr('text-anchor', function(d) {
+			return (d.value.difference > 0) ? 'end' : 'start';
+		})
+		.attr('dominant-baseline', 'middle')
+		.attr('fill', 'black')
+		.text(function(d) {
+			if (d.key == "Lost - Les disparus") return "Lost";
+			if (d.key == "How I Met Your Mother") return "HIMYM";
+			return d.key;
+		})
+		.style('font-family', "'Tungsten', sans-serif")
+		.style('font-size', `${that.yScale.bandwidth() - 8}px`)
+		.style('opacity', 0);
 }
 
 

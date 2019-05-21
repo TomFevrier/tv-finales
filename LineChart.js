@@ -33,8 +33,8 @@ LineChart.prototype.draw = function() {
 
 	let that = this;
 
-	this.width = 1200;
-	this.height = 800;
+	this.width = 800;
+	this.height = 500;
 	this.margin = 20;
 
 	this.createSVG();
@@ -168,7 +168,7 @@ LineChart.prototype.createLines = function() {
 					.attr('y1', that.yScale(0))
 					.attr('y2', that.yScale(10))
 					.attr('stroke', '#424242')
-					.attr('stroke-width', 3)
+					.attr('stroke-width', 2)
 					.attr('stroke-dasharray', '5 5')
 					.style('opacity', 0.5);
 			}
@@ -197,7 +197,7 @@ LineChart.prototype.createLines = function() {
 			.attr('class', title.replace(/ /g, "-").toLowerCase())
 			.attr('d', lineData)
 			.attr('stroke', 'crimson')
-			.attr('stroke-width', 3)
+			.attr('stroke-width', 2)
 			.attr('stroke-linecap', 'round')
 			.attr('fill', 'none');
 
@@ -339,43 +339,4 @@ LineChart.prototype.getTooltip = function(d) {
 			<h4>Note&nbsp;: ${d3.format('.2~')(d.rating)}/10</h4>
 		</div>
 	`;
-}
-
-
-LineChart.prototype.createLegend = function() {
-
-	this.svg.append('text')
-		.attr('x', this.margin)
-		.attr('y', this.margin - 25)
-		.attr('text-anchor', 'middle')
-		.style('font-style', 'italic')
-		.text('Fréquence');
-
-	this.svg.append('text')
-		.attr('x', this.width - this.margin + 10)
-		.attr('y', this.height - this.margin + 30)
-		.attr('text-anchor', 'end')
-		.style('font-style', 'italic')
-		.text('Année');
-
-	this.legend = this.svg.append('g')
-		.attr('class', 'legend')
-		.style('opacity', 0);
-
-	for (let i = 0; i < 2; i++) {
-		this.legend.append('rect')
-			.attr('x', this.width/2 - 180 + 300*i)
-			.attr('y', this.margin - 37)
-			.attr('width', 40)
-			.attr('height', 3)
-			.attr('fill', (i == 0) ? this.colorWinner : this.colorAudience);
-
-		this.legend.append('text')
-			.attr('x', this.width/2 - 130 + 300*i)
-			.attr('y', this.margin - 30)
-			.attr('text-anchor', 'start')
-			.attr('alignment-baseline', 'central')
-			.text((i == 0) ? 'Films nommés aux Oscars' : 'Films du top 20 au box office');
-	}
-
 }

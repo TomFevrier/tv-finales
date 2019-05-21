@@ -5,28 +5,51 @@
 		<script src='https://d3js.org/d3.v5.js'></script>
 		<script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
 		<script src='https://unpkg.com/scrollama'></script>
-		<link href='https://fonts.googleapis.com/css?family=Source+sSans+Pro' rel="stylesheet">
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro|Source+Serif+Pro&display=swap' rel="stylesheet">
 		<script type='module' src='main.js'></script>
 	</head>
 	<body>
+
 		<style>
 
+			@font-face {
+				font-family: 'Tungsten';
+				src: url("TungstenRnd-Semibold.otf") format('truetype');
+			}
+
+			h2, h3 {
+				font-family: 'Tungsten', sans-serif;
+			}
+
 			section {
-				font: 18px 'Source Sans Pro', sans-serif;
+				font: 18px 'Source Serif Pro', serif;
+				position: relative;
+				margin: 0 auto;
+				width: 40%;
+			}
+
+			section.large {
+				width: 60%;
+			}
+
+			#chapo {
+				font-size: 20px;
 			}
 
 			div.tooltip {
+				font-family: 'Source Sans Pro', sans-serif;
 				width: 180px;
 				position: absolute;
 				transform: translate(-50%, 25px);
 				padding: 5px;
-				font: 16px 'Source Sans Pro', sans-serif;
+				font-size: 16px;
 				color: #242424;
 				text-align: center;
 				background-color: #EEEEEE;
 				border: 0px;
 				border-radius: 4px;
 				pointer-events: none;
+				z-index: 42;
 			}
 
 			div.tooltip div {
@@ -57,7 +80,7 @@
 			}
 
 			.textSeason {
-				font: bold 50px 'Source Sans Pro', sans-serif;
+				font: 50px 'Tungsten', sans-serif;
 				opacity: 0.5;
 			}
 
@@ -103,31 +126,40 @@
 				font: 18px 'Source Sans Pro', sans-serif;
 			}
 
-			.step.is-active {
-				opacity: 1;
+			@media only screen and (max-width: 768px) {
+
+				section, section.large {
+					width: 100%;
+				}
+
+				.text {
+					width: 80%;
+					margin: 0 auto;
+				}
+
 			}
 
-
 		</style>
-		<section style='width: 40%; margin: 0 auto;'>
-			<p><a href='https://www.nouvelobs.com/series/20190519.OBS13141/game-of-thrones-on-n-aimerait-pas-etre-a-la-place-des-auteurs-dimanche-soir.html'>Difficile de conclure une série.</a> Encore plus lorsqu'il s'agit de <i>Game of Thrones</i>, la série la plus populaire de tous les temps, devenue un véritable phénomène culturel au cours de ses huit saisons.</p>
+
+		<section>
+			<p id='chapo'><a href='https://www.nouvelobs.com/series/20190519.OBS13141/game-of-thrones-on-n-aimerait-pas-etre-a-la-place-des-auteurs-dimanche-soir.html'>Difficile de conclure une série.</a> Encore plus lorsqu'il s'agit de <i>Game of Thrones</i>, la série la plus populaire de tous les temps, devenue un véritable phénomène culturel au cours de ses huit saisons.</p>
 			<p><b>Dire que l'épisode final de <i>Game of Thrones</i> n'a pas séduit les fans serait un euphémisme.</b> <i>The Iron Throne</i>, diffusé dimanche soir aux États-Unis, n'a récolté qu'un maigre 4,4/10 sur <a href='https://www.imdb.com'>IMDb.com</a>, sur la base de près de 150 000 notes attribuées par les utilisateurs du site. Il s'agit du score le plus bas jamais atteint par la série de David Benioff et D.B. Weiss, qui caracolait jusque là en tête des classements.</p>
 			<p>Si <i>Game of Thrones</i> a manifestement raté sa sortie, elle est loin d'être la seule. D'autres séries ont également perdu l'amour du public lors de leur dernière saison, voire lors de leur tout dernier épisode&nbsp;: les fins jugées décevantes de <i>Lost</i>, <i>Dexter</i> ou <i>How I Met Your Mother</i> évoquent encore de douloureux souvenirs chez de nombreux fans.</p>
 			<p>Afin de visualiser ces fins de séries ratées, ou au contraire réussies, nous avons collecté les notes IMDb de près de 4000 épisodes, issus de 32 séries parmi les plus populaires de ces vingt dernières années.</p>
 		</section>
-		<section style='position: relative; width: 40%; margin: 0 auto;'>
+		<section>
 			<h2>Des finals réussis... ou très décevants</h2>
 			<p><i>% de différence entre la note IMDb attribuée au dernier épisode d'une série et la moyenne des notes de la série</i></p>
 			<div class='chart' id='barChart'></div>
 		</section>
-		<section style='width: 40%; margin: 0 auto;'>
+		<section>
 			<p>Contrairement aux apparences, une majorité de séries parviennent à offrir une fin satisfaisante à leurs spectateurs. C'est le cas notamment de <i>Buffy contre les vampires</i> ou de <i>The Office</i>, dont les épisodes finaux ont une note près de 20&nbsp;% supérieure à la moyenne de la série.</p>
 			<p>Certaines séries atteignent même leur score maximal lors de leur dernier épisode. <i>Felina</i>, le final de <i>Breaking Bad</i>, souvent considéré comme un modèle de fin de série, recueille ainsi la note de 9,9/10 &mdash; un record. C'est également le cas des finals d'<i>Hannibal</i> et de <i>Six Feet Under</i> (tous les deux notés 9,8), ainsi que du dernier épisode de <i>Friends</i>, intitulé fort à propos <i>The Last One</i> (9,7).</p>
 			<p>Si l'on se souvient plus facilement des fins de séries ratées, c'est parce qu'elles sont souvent <b>très</b> ratées. <i>Game of Thrones</i> rejoint ainsi le club des séries aux finals les moins bien notés, avec <i>Dexter</i> et <i>House of Cards</i> &mdash; dont le dernier épisode n'avait obtenu que 2,7/10. Aïe.</p>
 			<p>Étonnamment, le dernier épisode de <i>Lost</i>, souvent cité comme l'une des fins de séries ayant le plus divisé, est finalement plutôt bien noté&nbsp;: 8,3/10, une note à peine inférieure à la moyenne de la série.</p>
 		</section>
 
-		<section id='scroll' style='position: relative; width: 60%; margin: 0 auto;'>
+		<section class='large' id='scroll' style='position: relative;'>
 			<div class='chart' id='lineChart'>
 				<h2>Les raisons de la colère</h2>
 			</div>
