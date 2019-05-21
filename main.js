@@ -72,20 +72,22 @@ window.onload = function() {
 
 		d3.select(response.element).classed('active', true);
 
-		if (response.index > 8) return null;
+		if (response.index > 7) return null;
 
-		if (response.index == 0) {
-			lineChart.lines.selectAll('path').each(function(d, i) {
-				d3.select(this).transition()
-					.duration(3000)
-					.delay(i * 200)
-					.attr('stroke-dashoffset', 0);
-			});
-		}
-		else {
-			lineChart.update(lineChart.data[response.index - 1].key)
+		lineChart.update(lineChart.data[response.index].key)
 
-		}
+		// if (response.index == 0) {
+		// 	lineChart.lines.selectAll('path').each(function(d, i) {
+		// 		d3.select(this).transition()
+		// 			.duration(3000)
+		// 			.delay(i * 200)
+		// 			.attr('stroke-dashoffset', 0);
+		// 	});
+		// }
+		// else {
+		// 	lineChart.update(lineChart.data[response.index - 1].key)
+		//
+		// }
 
 	}
 

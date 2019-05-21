@@ -197,14 +197,15 @@ LineChart.prototype.createLines = function() {
 			.attr('class', title.replace(/ /g, "-").toLowerCase())
 			.attr('d', lineData)
 			.attr('stroke', 'crimson')
-			.attr('stroke-width', 2)
+			.attr('stroke-width', 3)
 			.attr('stroke-linecap', 'round')
-			.attr('fill', 'none');
+			.attr('fill', 'none')
+			.style('opacity', 0);
 
-		let length = line.node().getTotalLength();
-		line
-			.attr('stroke-dasharray', `${length} ${length}`)
-			.attr('stroke-dashoffset', length);
+		// let length = line.node().getTotalLength();
+		// line
+		// 	.attr('stroke-dasharray', `${length} ${length}`)
+		// 	.attr('stroke-dashoffset', length);
 
 		let maxRating = d3.max(episodes, function(d) {
 			return d.rating;
@@ -251,9 +252,9 @@ LineChart.prototype.update = function(title) {
 
 	let that = this;
 
-	this.lines.selectAll('path')
-		.attr('stroke-dashoffset', 0)
-		.attr('stroke-dasharray', 'none');
+	// this.lines.selectAll('path')
+	// 	.attr('stroke-dashoffset', 0)
+	// 	.attr('stroke-dasharray', 'none');
 
 	this.seasonGuides.selectAll('g')
 		.transition()
@@ -300,10 +301,10 @@ LineChart.prototype.update = function(title) {
 		.on('mouseover', function(d) {
 			let boundingRect = d3.select(that.element).node().getBoundingClientRect();
 			let ratio = boundingRect.width / that.width;
-			let offset = boundingRect.top;
+			// let offset = boundingRect.top;
 			that.tooltip.html(that.getTooltip(d))
 				.style('left', `${parseFloat(d3.select(d3.event.target).attr('cx')) * ratio}px`)
-				.style('top', `${offset + parseFloat(d3.select(d3.event.target).attr('cy')) * ratio + 25}px`);
+				.style('top', `${parseFloat(d3.select(d3.event.target).attr('cy')) * ratio + 25}px`);
 			that.tooltip
 				.transition()
 				.duration(200)
